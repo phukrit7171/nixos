@@ -129,7 +129,7 @@
   users.users.phukrit7171 = {
     isNormalUser = true;
     description = "Phukrit Kittinontana";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "dialout" ];
     shell = pkgs.fish;
     packages = with pkgs; [
       tree
