@@ -129,7 +129,7 @@
   users.users.phukrit7171 = {
     isNormalUser = true;
     description = "Phukrit Kittinontana";
-    extraGroups = [ "networkmanager" "wheel" "dialout" ];
+    extraGroups = [ "networkmanager" "wheel" "dialout" "plugdev" ];
     shell = pkgs.fish;
     packages = with pkgs; [
       tree
@@ -173,6 +173,8 @@
     git
     grc
     sbctl
+    libfido2  # เพิ่มตัวนี้เพื่อใช้คำสั่ง fido2-token
+    usbutils  # เพิ่มตัวนี้เพื่อใช้คำสั่ง lsusb
   ];
 
   programs.nix-ld.enable = true;
@@ -218,7 +220,10 @@
       RemainAfterExit = true;
     };
   };
-
+  # FIDO2 Optimize
+  services.udev.extraRules = ''
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="303a", ATTRS{idProduct}=="4004", MODE="0666", TAG+="uaccess", GROUP="plugdev"
+  '';
   # =================================================================
   # 8. STATE VERSION
   # =================================================================
