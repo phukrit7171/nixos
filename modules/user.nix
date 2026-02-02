@@ -17,6 +17,7 @@
       brave
       microsoft-edge
       google-chrome
+      kdePackages.falkon
 
       # Editors/Dev
       vscode
