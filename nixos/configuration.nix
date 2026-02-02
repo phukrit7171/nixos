@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   # Imports: hardware-configuration.nix is now imported by flake.nix
@@ -20,10 +26,29 @@
   security.tpm2.pkcs11.enable = true;
   security.tpm2.tctiEnvironment.enable = true;
 
+  # Networking tweaks
+  boot.kernel.sysctl = {
+    # TCP Fast Open
+    "net.ipv4.tcp_fastopen" = 3;
+    # BBR Congestion Control (much faster than default 'cubic')
+    "net.core.default_qdisc" = "fq";
+    "net.ipv4.tcp_congestion_control" = "bbr";
+  };
+
   # Nix Settings & Flakes
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     auto-optimise-store = true;
+
+    # Ensures Nix uses all your CPU cores effectively
+    max-jobs = "auto";
+    cores = 0; # 0 tells Nix to use all available logical cores
+
+    # Modern efficiency
+    compress-build-log = true;
   };
 
   # 2026 Best Practice: Pin nixpkgs to the flake input
@@ -85,11 +110,17 @@
   services.printing.enable = true;
 
   # =================================================================
-  # 4. GRAPHICS & DRIVERS (NVIDIA)
+  # 4. GRAPHICS & DRIVERS (NVIDIA & iGPU INTEL)
   # =================================================================
 
-  hardware.graphics.enable = true;
-  services.xserver.videoDrivers = ["nvidia"];
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      nvidia-vaapi-driver
+      intel-media-driver # For the Intel iGPU
+    ];
+  };
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
     modesetting.enable = true;
@@ -129,7 +160,12 @@
   users.users.phukrit7171 = {
     isNormalUser = true;
     description = "Phukrit Kittinontana";
-    extraGroups = [ "networkmanager" "wheel" "dialout" "plugdev" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "dialout"
+      "plugdev"
+    ];
     shell = pkgs.fish;
     packages = with pkgs; [
       tree
@@ -173,8 +209,8 @@
     git
     grc
     sbctl
-    libfido2  # เพิ่มตัวนี้เพื่อใช้คำสั่ง fido2-token
-    usbutils  # เพิ่มตัวนี้เพื่อใช้คำสั่ง lsusb
+    libfido2 # เพิ่มตัวนี้เพื่อใช้คำสั่ง fido2-token
+    usbutils # เพิ่มตัวนี้เพื่อใช้คำสั่ง lsusb
     nil
     nixd
   ];
@@ -196,6 +232,14 @@
   # =================================================================
 
   services.openssh.enable = true;
+
+  # CPU Power Management
+  # Since you're using Intel, enable Thermald to prevent thermal throttling
+  services.thermald.enable = true;
+  # This gives you "Power Save / Balanced / Performance" sliders in your KDE taskbar
+  services.power-profiles-daemon.enable = true;
+
+  # Automatically trim SSDs
   services.fstrim.enable = true;
 
   # Bluetooth
