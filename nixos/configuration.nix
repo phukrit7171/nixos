@@ -175,6 +175,8 @@
     sbctl
     libfido2  # เพิ่มตัวนี้เพื่อใช้คำสั่ง fido2-token
     usbutils  # เพิ่มตัวนี้เพื่อใช้คำสั่ง lsusb
+    nil
+    nixd
   ];
 
   programs.nix-ld.enable = true;
