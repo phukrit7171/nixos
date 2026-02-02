@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   # BOOTLOADER
@@ -19,4 +19,10 @@
     "net.core.default_qdisc" = "fq";
     "net.ipv4.tcp_congestion_control" = "bbr";
   };
+
+  # This pulls the specific driver for Legion 5 Pro (16ITH6H)
+  boot.extraModulePackages = [ config.boot.kernelPackages.lenovo-legion-module ];
+
+  # Load the module at boot
+  boot.kernelModules = [ "lenovo-legion-module" ];
 }
