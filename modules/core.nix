@@ -14,7 +14,7 @@
   };
 
   services.openssh.enable = true;
-  services.thermald.enable = true;
+  services.thermald.enable = false;
   services.power-profiles-daemon.enable = true;
   services.fstrim.enable = true;
 
