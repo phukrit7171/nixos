@@ -24,20 +24,22 @@
           # 2. ตั้งค่าโครงสร้าง Kconfig ให้ถูกต้อง (ต้องอยู่ใน override)
           structuredConfig = with pkgs.lib.kernel; {
             LTO_NONE = no;
-            LTO_CLANG_FULL = yes;
+            LTO_CLANG_THIN = yes;
+
+            FTRACE = no;
+            KPROBES = no;
+
             CC_OPTIMIZE_FOR_PERFORMANCE = yes;
             CC_OPTIMIZE_FOR_SIZE = no;
-            PREEMPT_VOLUNTARY = yes;
           };
         }).overrideAttrs
           (oldAttrs: {
             # 3. ใส่ Flags การคอมไพล์ที่ต้องการ
             NIX_CFLAGS_COMPILE = (oldAttrs.NIX_CFLAGS_COMPILE or [ ]) ++ [
               "-O3"
-              "-march=native"
-              "-flto=full"
+              "-march=tigerlake"
+              "-mtune=tigerlake"
               "-pipe"
-              "-fno-plt"
             ];
 
             # 4. บังคับใช้ LLVM Toolchain ทั้งระบบการ Build ของ Kernel
