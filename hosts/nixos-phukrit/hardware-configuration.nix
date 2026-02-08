@@ -21,6 +21,8 @@
     "usbhid"
     "usb_storage"
     "sd_mod"
+    "tpm_tis"
+    "tpm_crb"
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
@@ -32,8 +34,10 @@
     options = [ "subvol=@root" ];
   };
 
-  boot.initrd.luks.devices."cryptroot".device =
-    "/dev/disk/by-uuid/e57aefc6-46fb-4114-a5c0-356c8e09ce35";
+  boot.initrd.luks.devices."cryptroot" = {
+    device = "/dev/disk/by-uuid/e57aefc6-46fb-4114-a5c0-356c8e09ce35";
+    crypttabExtraOpts = [ "tpm2-device=auto" ];
+  };
 
   fileSystems."/nix" = {
     device = "/dev/mapper/cryptroot";
@@ -56,8 +60,10 @@
     options = [ "subvol=@home" ];
   };
 
-  boot.initrd.luks.devices."crypthome".device =
-    "/dev/disk/by-uuid/9d5b197e-c71c-4643-9a9b-0fe51a4f23e3";
+  boot.initrd.luks.devices."crypthome" = {
+    device = "/dev/disk/by-uuid/9d5b197e-c71c-4643-9a9b-0fe51a4f23e3";
+    crypttabExtraOpts = [ "tpm2-device=auto" ];
+  };
 
   swapDevices = [ ];
 
