@@ -11,6 +11,7 @@
   services.scx = {
     enable = true;
     scheduler = "scx_lavd";
+    extraArgs = [ "--autopilot" ];
   };
 
   services.openssh.enable = true;
