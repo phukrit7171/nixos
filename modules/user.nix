@@ -60,6 +60,7 @@
     usbutils
     nil
     nixd
+    lenovo-legion
   ];
 
   # 4. PROGRAMS CONFIG
