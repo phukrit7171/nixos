@@ -32,6 +32,9 @@
       spotify
       discord-ptb
       tree
+
+      # Tools
+      kdePackages.kcalc
     ];
   };
 
