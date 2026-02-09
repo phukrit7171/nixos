@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   # 1. DESKTOP ENVIRONMENT
@@ -15,7 +15,6 @@
   services.libinput.enable = true;
   services.xserver.xkb.layout = "us,th";
   services.xserver.xkb.options = "grp:win_space_toggle";
-  services.printing.enable = true;
 
   # 2. AUDIO (Pipewire)
   services.pulseaudio.enable = false;
@@ -26,4 +25,32 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+
+  # Enable CUPS to print documents.
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.brlaser ]; # General Brother laser/inkjet driver
+  };
+
+  # Enable network discovery for the printer (Avahi/mDNS)
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  # Optional: Scanner support for the T520W
+  hardware.sane = {
+    enable = true;
+    extraBackends = [ pkgs.sane-airscan ];
+  };
+
+  hardware.printers.ensurePrinters = [
+    {
+      name = "Brother_DCP_T520W";
+      deviceUri = "ipp://192.168.1.104/ipp";
+      model = "everywhere";
+      description = "Brother DCP-T520W via IPP Everywhere";
+    }
+  ];
 }
