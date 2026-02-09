@@ -10,6 +10,9 @@
       "wheel"
       "dialout"
       "plugdev"
+      "scanner"
+      "lpadmin"
+      "lp"
     ];
     shell = pkgs.fish;
     packages = with pkgs; [
@@ -61,6 +64,8 @@
     nil
     nixd
     lenovo-legion
+    pkgs.kdePackages.skanpage
+    xsane
   ];
 
   # 4. PROGRAMS CONFIG

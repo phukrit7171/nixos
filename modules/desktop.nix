@@ -42,7 +42,16 @@
   # Optional: Scanner support for the T520W
   hardware.sane = {
     enable = true;
-    extraBackends = [ pkgs.sane-airscan ];
+    extraBackends = [
+      pkgs.brscan5
+      pkgs.sane-airscan
+    ];
+    brscan5.netDevices = {
+      home = {
+        model = "DCP-T520W";
+        ip = "192.168.1.104";
+      };
+    };
   };
 
   hardware.printers.ensurePrinters = [
@@ -53,4 +62,5 @@
       description = "Brother DCP-T520W via IPP Everywhere";
     }
   ];
+  services.udev.packages = [ pkgs.brscan5 ];
 }
