@@ -6,6 +6,10 @@
   networking.networkmanager.enable = true;
   time.timeZone = "Asia/Bangkok";
 
+  # VPN Netbird
+  services.netbird.enable = true;
+  environment.systemPackages = [ pkgs.netbird-ui ];
+
   # SYSTEM SERVICES
   zramSwap.enable = true;
   services.scx = {
