@@ -27,6 +27,7 @@
       zed-editor
       fnm
       uv
+      dbeaver-bin
 
       # Social/Tools
       spotify
