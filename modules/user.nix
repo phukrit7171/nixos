@@ -36,6 +36,8 @@
 
       # Tools
       kdePackages.kcalc
+      htop
+      btop
     ];
   };
 
