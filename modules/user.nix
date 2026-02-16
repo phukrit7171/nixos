@@ -72,6 +72,9 @@
     lenovo-legion
     pkgs.kdePackages.skanpage
     xsane
+    pkg-config
+    gnumake
+    gcc
   ];
 
   # 4. PROGRAMS CONFIG
@@ -88,6 +91,7 @@
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
+    # --- The Essentials ---
     stdenv.cc.cc
     zlib
     fuse3
@@ -96,5 +100,33 @@
     openssl
     curl
     expat
+
+    # --- The "Ubuntu Standard" (What pkg-config usually looks for) ---
+    glib
+    libuuid
+    libusb1
+    libsecret
+    libnotify
+    libcap
+    systemd # provides libudev
+    dbus
+    at-spi2-atk
+
+    # --- Graphics & UI (Missing from your original list) ---
+    fontconfig
+    freetype
+    libGL
+    libGLU
+    xorg.libX11
+    xorg.libXcursor
+    xorg.libXdamage
+    xorg.libXext
+    xorg.libXfixes
+    xorg.libXi
+    xorg.libXrender
+    xorg.libXtst
+    xorg.libxcb
+    xorg.libXcomposite
+    xorg.libXrandr
   ];
 }
