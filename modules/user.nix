@@ -28,6 +28,7 @@
       fnm
       uv
       dbeaver-bin
+      antigravity
 
       # Social/Tools
       spotify
@@ -100,6 +101,9 @@
     openssl
     curl
     expat
+    libclang.lib
+    llvmPackages.libclang.lib
+    clang
 
     # --- The "Ubuntu Standard" (What pkg-config usually looks for) ---
     glib
