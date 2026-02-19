@@ -69,6 +69,7 @@
     libfido2
     usbutils
     nil
+    nixfmt
     nixd
     lenovo-legion
     pkgs.kdePackages.skanpage
