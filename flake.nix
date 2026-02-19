@@ -2,23 +2,70 @@
   description = "NixOS configuration for nixos-phukrit";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs =
-    { self, nixpkgs, ... }@inputs:
     {
-      nixosConfigurations = {
-        nixos-phukrit = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs self; };
-          modules = [
-            ./hosts/nixos-phukrit/configuration.nix
-          ];
+      self,
+      nixpkgs,
+      flake-parts,
+      ...
+    }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" ];
+      imports = [
+        inputs.treefmt-nix.flakeModule
+      ];
+
+      perSystem =
+        {
+          config,
+          self',
+          inputs',
+          pkgs,
+          system,
+          ...
+        }:
+        {
+          # Formatting
+          treefmt.projectRootFile = "flake.nix";
+          treefmt.programs.nixfmt.enable = true; # nixfmt-rfc-style
+
+          # Shell for bootstrapping
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [
+              git
+              just
+              nixfmt
+            ];
+          };
+        };
+
+      flake = {
+        nixosConfigurations = {
+          nixos-phukrit = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            specialArgs = { inherit inputs self; };
+            modules = [
+              ./hosts/nixos-phukrit/configuration.nix
+            ];
+          };
         };
       };
     };
