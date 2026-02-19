@@ -41,7 +41,7 @@
   # HOST SPECIFIC CONFIGURATION
   # =================================================================
 
-  networking.hostName = "nixos-phukrit";
+  networking.hostName = "16ITH6H4";
   time.timeZone = "Asia/Bangkok";
 
   # Hardware: Lenovo Legion specific

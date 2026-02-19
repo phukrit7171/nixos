@@ -1,5 +1,5 @@
 {
-  description = "NixOS configuration for nixos-phukrit";
+  description = "NixOS configuration for 16ITH6H4";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -73,17 +73,17 @@
           # Checks
           checks = {
             # Build the configuration to verify it works
-            nixos-phukrit = self.nixosConfigurations.nixos-phukrit.config.system.build.toplevel;
+            "16ITH6H4" = self.nixosConfigurations."16ITH6H4".config.system.build.toplevel;
           };
         };
 
       flake = {
         nixosConfigurations = {
-          nixos-phukrit = nixpkgs.lib.nixosSystem {
+          "16ITH6H4" = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit inputs self; };
             modules = [
-              ./hosts/nixos-phukrit/configuration.nix
+              ./hosts/16ITH6H4/configuration.nix
               inputs.lanzaboote.nixosModules.lanzaboote
               inputs.sops-nix.nixosModules.sops
             ];
