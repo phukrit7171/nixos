@@ -1,15 +1,12 @@
 { pkgs, ... }:
 
 {
-  # --- Editors & Dev Tools ---
+  # --- System-wide Dev Tools ---
   environment.systemPackages = with pkgs; [
-    # Editors
+    # Editors (available to all users / root)
     vim
     neovim
     helix
-    vscode
-    zed-editor
-    antigravity
 
     # Build tools
     pkg-config
@@ -20,23 +17,10 @@
     nil
     nixfmt
     nixd
-  ];
 
-  # --- Version Control ---
-  programs.git = {
-    enable = true;
-    config = {
-      user.name = "Mr.Phukrit Kittinontana";
-      user.email = "phukrit7171@gmail.com";
-      init.defaultBranch = "main";
-    };
-  };
-
-  # --- Language Toolchains (user-scoped) ---
-  users.users.phukrit7171.packages = with pkgs; [
-    fnm # Node version manager
-    uv # Python package manager
-    dbeaver-bin # Database GUI
+    # CLI essentials
+    wget
+    curl
   ];
 
   # --- nix-ld (Run unpatched binaries) ---
