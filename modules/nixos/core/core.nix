@@ -20,7 +20,7 @@
     # SYSTEM SERVICES
     zramSwap.enable = true;
     services.scx = {
-      enable = true;
+      enable = false; # it's bug
       scheduler = "scx_lavd";
       extraArgs = [ "--autopower" ];
     };
