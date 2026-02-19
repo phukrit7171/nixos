@@ -1,52 +1,48 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 {
-  # NETWORKING & TIME
-  networking.hostName = "nixos-phukrit";
-  networking.networkmanager.enable = true;
-  time.timeZone = "Asia/Bangkok";
+  options.modules.core.system.enable = lib.mkEnableOption "Core System Configuration";
 
-  # VPN Netbird
-  services.netbird.enable = true;
-  environment.systemPackages = with pkgs; [ netbird-ui ];
+  config = lib.mkIf config.modules.core.system.enable {
+    # NETWORKING & TIME
+    networking.networkmanager.enable = true;
+    # time.timeZone handled by host config or default
 
-  # SYSTEM SERVICES
-  zramSwap.enable = true;
-  services.scx = {
-    enable = true;
-    scheduler = "scx_lavd";
-    extraArgs = [ "--autopower" ];
-  };
+    # VPN Netbird
+    services.netbird.enable = true;
+    environment.systemPackages = with pkgs; [ netbird-ui ];
 
-  services.openssh.enable = true;
-  services.power-profiles-daemon.enable = true;
-  services.fstrim.enable = true;
-
-  # BLUETOOTH
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-    settings.General = {
-      Enable = "Source,Sink,Media,Socket";
-      Experimental = true;
-      AutoEnable = true;
+    # SYSTEM SERVICES
+    zramSwap.enable = true;
+    services.scx = {
+      enable = true;
+      scheduler = "scx_lavd";
+      extraArgs = [ "--autopower" ];
     };
-  };
 
-  # BLUETOOTH UNBLOCK HACK (Lenovo Legion)
-  systemd.services.unblock-bluetooth = {
-    description = "Unblock Bluetooth on Lenovo Legion";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "bluetooth.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.util-linux}/bin/rfkill unblock bluetooth";
-      RemainAfterExit = true;
+    services.openssh.enable = true;
+    services.power-profiles-daemon.enable = true;
+    services.fstrim.enable = true;
+
+    # BLUETOOTH
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings.General = {
+        Enable = "Source,Sink,Media,Socket";
+        Experimental = true;
+        AutoEnable = true;
+      };
     };
-  };
 
-  # UDEV RULES (FIDO2)
-  services.udev.extraRules = ''
-    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="303a", ATTRS{idProduct}=="4004", MODE="0666", TAG+="uaccess", GROUP="plugdev"
-  '';
+    # UDEV RULES (FIDO2)
+    services.udev.extraRules = ''
+      KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="303a", ATTRS{idProduct}=="4004", MODE="0666", TAG+="uaccess", GROUP="plugdev"
+    '';
+  };
 }

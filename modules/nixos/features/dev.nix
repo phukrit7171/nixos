@@ -1,71 +1,80 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 {
-  # --- System-wide Dev Tools ---
-  environment.systemPackages = with pkgs; [
-    # Editors (available to all users / root)
-    vim
-    neovim
-    helix
+  options.modules.features.dev.enable = lib.mkEnableOption "Development Tools & Environment";
 
-    # Build tools
-    pkg-config
-    gnumake
-    gcc
+  config = lib.mkIf config.modules.features.dev.enable {
+    # --- System-wide Dev Tools ---
+    environment.systemPackages = with pkgs; [
+      # Editors (available to all users / root)
+      vim
+      neovim
+      helix
 
-    # Nix tooling
-    nil
-    nixfmt
-    nixd
+      # Build tools
+      pkg-config
+      gnumake
+      gcc
 
-    # CLI essentials
-    wget
-    curl
-  ];
+      # Nix tooling
+      nil
+      nixfmt
+      nixd
 
-  # --- nix-ld (Run unpatched binaries) ---
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    # Core
-    stdenv.cc.cc
-    zlib
-    fuse3
-    icu
-    nss
-    openssl
-    curl
-    expat
+      # CLI essentials
+      wget
+      curl
+    ];
 
-    # LLVM / Clang
-    libclang.lib
-    clang
+    # --- nix-ld (Run unpatched binaries) ---
+    programs.nix-ld.enable = true;
+    programs.nix-ld.libraries = with pkgs; [
+      # Core
+      stdenv.cc.cc
+      zlib
+      fuse3
+      icu
+      nss
+      openssl
+      curl
+      expat
 
-    # System libraries
-    glib
-    libuuid
-    libusb1
-    libsecret
-    libnotify
-    libcap
-    systemd
-    dbus
-    at-spi2-atk
+      # LLVM / Clang
+      libclang.lib
+      clang
 
-    # Graphics & UI
-    fontconfig
-    freetype
-    libGL
-    libGLU
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXi
-    xorg.libXrender
-    xorg.libXtst
-    xorg.libxcb
-    xorg.libXcomposite
-    xorg.libXrandr
-  ];
+      # System libraries
+      glib
+      libuuid
+      libusb1
+      libsecret
+      libnotify
+      libcap
+      systemd
+      dbus
+      at-spi2-atk
+
+      # Graphics & UI
+      fontconfig
+      freetype
+      libGL
+      libGLU
+      xorg.libX11
+      xorg.libXcursor
+      xorg.libXdamage
+      xorg.libXext
+      xorg.libXfixes
+      xorg.libXi
+      xorg.libXrender
+      xorg.libXtst
+      xorg.libxcb
+      xorg.libXcomposite
+      xorg.libXrandr
+    ];
+  };
 }

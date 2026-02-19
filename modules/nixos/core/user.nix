@@ -1,20 +1,29 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 {
-  users.users.phukrit7171 = {
-    isNormalUser = true;
-    description = "Phukrit Kittinontana";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "dialout"
-      "plugdev"
-      "scanner"
-      "lpadmin"
-      "lp"
-    ];
-    shell = pkgs.fish;
-  };
+  options.modules.core.user.enable = lib.mkEnableOption "Core User Configuration";
 
-  programs.fish.enable = true;
+  config = lib.mkIf config.modules.core.user.enable {
+    users.users.phukrit7171 = {
+      isNormalUser = true;
+      description = "Phukrit Kittinontana";
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "dialout"
+        "plugdev"
+        "scanner"
+        "lpadmin"
+        "lp"
+      ];
+      shell = pkgs.fish;
+    };
+
+    programs.fish.enable = true;
+  };
 }

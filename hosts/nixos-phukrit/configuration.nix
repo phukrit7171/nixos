@@ -1,18 +1,60 @@
-{ inputs, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/nixos/core/boot.nix
-    ../../modules/nixos/core/nix-settings.nix
-    ../../modules/nixos/core/core.nix
-    ../../modules/nixos/features/desktop.nix
-    ../../modules/nixos/features/nvidia.nix
-    ../../modules/nixos/core/user.nix
-    ../../modules/nixos/features/dev.nix
+    ../../modules/nixos/core
+    ../../modules/nixos/features
     inputs.home-manager.nixosModules.home-manager
   ];
 
+  # =================================================================
+  # SYSTEM COMPOSITION (Enable Modules)
+  # =================================================================
+
+  # Core System
+  modules.core.boot.enable = true;
+  modules.core.system.enable = true;
+  modules.core.nix.enable = true;
+  modules.core.user.enable = true;
+
+  # Features
+  modules.features.desktop.enable = true;
+  modules.features.desktop.printing.enable = true;
+  modules.features.desktop.scanning.enable = true;
+  modules.features.nvidia.enable = true;
+  modules.features.dev.enable = true;
+
+  # =================================================================
+  # HOST SPECIFIC CONFIGURATION
+  # =================================================================
+
+  networking.hostName = "nixos-phukrit";
+  time.timeZone = "Asia/Bangkok";
+
+  # Hardware: Lenovo Legion specific
+  boot.extraModulePackages = [ config.boot.kernelPackages.lenovo-legion-module ];
+  boot.kernelModules = [ "lenovo-legion-module" ];
+
+  # Bluetooth Unblock Hack (Lenovo Legion)
+  systemd.services.unblock-bluetooth = {
+    description = "Unblock Bluetooth on Lenovo Legion";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "bluetooth.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.util-linux}/bin/rfkill unblock bluetooth";
+      RemainAfterExit = true;
+    };
+  };
+
+  # Home Manager
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
