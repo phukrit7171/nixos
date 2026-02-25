@@ -1,6 +1,5 @@
 {
   imports = [
-    ./core/shell.nix
     ./core/git.nix
     ./core/packages.nix
   ];

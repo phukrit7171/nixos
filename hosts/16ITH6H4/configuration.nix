@@ -27,9 +27,15 @@
   modules.core.security.enable = true;
 
   # Features
+  programs.fish.enable = true;
   modules.features.desktop.enable = true;
   modules.features.desktop.printing.enable = true;
   modules.features.desktop.scanning.enable = true;
+  programs.starship.enable = true;
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
+  users.defaultUserShell = pkgs.fish;
+
   modules.features.nvidia = {
     enable = true;
     intelBusId = "PCI:0:2:0";
