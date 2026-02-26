@@ -11,9 +11,11 @@
 
     includes = [
       {
-        condition = "gitdir:/home/phukrit7171/Development/bu8";
+        condition = "gitdir:/home/phukrit7171/Development/bu8/";
         contents = {
-          user.email = "phukrit.k@chanwanich.digital";
+          user = {
+            email = "phukrit.k@chanwanich.digital";
+          };
         };
       }
     ];
