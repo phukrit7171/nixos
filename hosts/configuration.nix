@@ -33,7 +33,7 @@
 
   # Hardware: Lenovo Legion specific
   boot.extraModulePackages = [ config.boot.kernelPackages.lenovo-legion-module ];
-  boot.kernelModules = [ "lenovo-legion-module" ];
+  boot.kernelModules = [ "legion-laptop" ];
 
   # Bluetooth Unblock Hack (Lenovo Legion)
   systemd.services.unblock-bluetooth = {
