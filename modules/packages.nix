@@ -21,6 +21,7 @@
     vesktop
 
     # Editors & Dev
+    bruno
     zed-editor
     fnm
     uv
