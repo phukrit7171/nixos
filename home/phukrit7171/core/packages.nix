@@ -22,7 +22,7 @@
     uv
     dbeaver-bin
     thonny
-    inputs.antigravity-nix.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.antigravity-nix.packages.${pkgs.stdenv.hostPlatform.system}.google-antigravity-no-fhs
     git-credential-manager
     # Utilities
     kdePackages.kcalc
