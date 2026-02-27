@@ -2,6 +2,7 @@
   imports = [
     ./core/git.nix
     ./core/packages.nix
+    ./core/shell.nix
   ];
 
   home.username = "phukrit7171";
