@@ -3,6 +3,9 @@
 {
   # System-wide packages to replace the home-manager managed packages
   environment.systemPackages = with pkgs; [
+    # Legion
+    lenovo-legion
+
     # Credentials
     kdePackages.ksshaskpass
 
