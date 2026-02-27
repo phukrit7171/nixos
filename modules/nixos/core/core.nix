@@ -39,10 +39,5 @@
         AutoEnable = true;
       };
     };
-
-    # UDEV RULES (FIDO2)
-    services.udev.extraRules = ''
-      KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="303a", ATTRS{idProduct}=="4004", MODE="0666", TAG+="uaccess", GROUP="plugdev"
-    '';
   };
 }

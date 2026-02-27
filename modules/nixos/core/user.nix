@@ -16,7 +16,6 @@
         "networkmanager"
         "wheel"
         "dialout"
-        "plugdev"
         "scanner"
         "lpadmin"
         "lp"
