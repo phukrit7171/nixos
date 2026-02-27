@@ -79,6 +79,11 @@
     extraSpecialArgs = { inherit inputs; };
   };
 
+  # Fonts
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+  ];
+
   # =================================================================
   # STATE VERSION
   # =================================================================
