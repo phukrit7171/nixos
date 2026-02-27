@@ -10,20 +10,18 @@
   imports = [
     ./hardware-configuration.nix
 
-    # Core
-    ../../modules/nixos/core/boot.nix
-    ../../modules/nixos/core/core.nix
-    ../../modules/nixos/core/nix-settings.nix
-    ../../modules/nixos/core/security.nix
-    ../../modules/nixos/core/user.nix
-    ../../modules/nixos/core/packages.nix
-    ../../modules/nixos/core/git.nix
-    ../../modules/nixos/core/shell.nix
-
-    # Features
-    ../../modules/nixos/features/desktop.nix
-    ../../modules/nixos/features/dev.nix
-    ../../modules/nixos/features/nvidia.nix
+    # Default modules
+    ../modules/boot.nix
+    ../modules/core.nix
+    ../modules/desktop.nix
+    ../modules/dev.nix
+    ../modules/git.nix
+    ../modules/nix-settings.nix
+    ../modules/nvidia.nix
+    ../modules/packages.nix
+    ../modules/security.nix
+    ../modules/shell.nix
+    ../modules/user.nix
   ];
 
   # =================================================================

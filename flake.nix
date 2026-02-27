@@ -15,36 +15,44 @@
     };
   };
 
-  outputs = { self, nixpkgs, sops-nix, antigravity-nix, ... }@inputs: {
-    nixosConfigurations = {
-      "16ITH6H4" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs self; };
-        modules = [
-          ./hosts/16ITH6H4/configuration.nix
-          inputs.sops-nix.nixosModules.sops
-        ];
+  outputs =
+    {
+      self,
+      nixpkgs,
+      sops-nix,
+      antigravity-nix,
+      ...
+    }@inputs:
+    {
+      nixosConfigurations = {
+        "16ITH6H4" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs self; };
+          modules = [
+            ./hosts/configuration.nix
+            inputs.sops-nix.nixosModules.sops
+          ];
+        };
       };
-    };
 
-    # Shell for bootstrapping
-    devShells."x86_64-linux".default =
-      let
-        pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
-      in
-      pkgs.mkShell {
-        packages = with pkgs; [
-          git
-          just
-          nixfmt # Required instead of nixfmt-rfc-style
-          nh
-          sbctl
-          sops
-          age
-        ];
-      };
-      
-    # Formatter
-    formatter."x86_64-linux" = inputs.nixpkgs.legacyPackages."x86_64-linux".nixfmt;
-  };
+      # Shell for bootstrapping
+      devShells."x86_64-linux".default =
+        let
+          pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
+        in
+        pkgs.mkShell {
+          packages = with pkgs; [
+            git
+            just
+            nixfmt # Required instead of nixfmt-rfc-style
+            nh
+            sbctl
+            sops
+            age
+          ];
+        };
+
+      # Formatter
+      formatter."x86_64-linux" = inputs.nixpkgs.legacyPackages."x86_64-linux".nixfmt;
+    };
 }
