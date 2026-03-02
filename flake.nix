@@ -29,10 +29,14 @@
       fenix,
       ...
     }@inputs:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
     {
       nixosConfigurations = {
         "16ITH6H4" = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+          inherit system;
           specialArgs = { inherit inputs self; };
           modules = [
             ./hosts/configuration.nix
@@ -42,23 +46,19 @@
       };
 
       # Shell for bootstrapping
-      devShells."x86_64-linux".default =
-        let
-          pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
-        in
-        pkgs.mkShell {
-          packages = with pkgs; [
-            git
-            just
-            nixfmt # Required instead of nixfmt-rfc-style
-            nh
-            sbctl
-            sops
-            age
-          ];
-        };
+      devShells.${system}.default = pkgs.mkShell {
+        packages = with pkgs; [
+          git
+          just
+          nixfmt # Required instead of nixfmt-rfc-style
+          nh
+          sbctl
+          sops
+          age
+        ];
+      };
 
       # Formatter
-      formatter."x86_64-linux" = inputs.nixpkgs.legacyPackages."x86_64-linux".nixfmt;
+      formatter.${system} = pkgs.nixfmt;
     };
 }
