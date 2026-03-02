@@ -9,18 +9,7 @@
     ./hardware-configuration.nix
 
     # Default modules
-    ../modules/boot.nix
-    ../modules/core.nix
-    ../modules/desktop.nix
-    ../modules/dev.nix
-    ../modules/git.nix
-    ../modules/nix-settings.nix
-    ../modules/nvidia.nix
-    ../modules/packages.nix
-    ../modules/security.nix
-    ../modules/shell.nix
-    ../modules/user.nix
-    ../modules/containers.nix
+    ../modules
   ];
 
   # =================================================================
@@ -45,11 +34,6 @@
       RemainAfterExit = true;
     };
   };
-
-  # Fonts
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-  ];
 
   # =================================================================
   # STATE VERSION

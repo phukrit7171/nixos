@@ -29,20 +29,30 @@ nixos-config/
 │       ├── configuration.nix         # Host-specific config & module imports
 │       └── hardware-configuration.nix # Hardware & BTRFS mounts
 │
-├── modules/nixos/
+├── modules/
+│   ├── apps/
+│   │   └── packages.nix              # Main user packages
 │   ├── core/                       # Core system components
 │   │   ├── boot.nix                  # Bootloader, kernel, sysctl
-│   │   ├── core.nix                  # Networking, Bluetooth, services
-│   │   ├── git.nix                   # System-wide git config
+│   │   ├── networking.nix            # NetworkManager, Netbird
 │   │   ├── nix-settings.nix          # Flakes, GC, store optimization
-│   │   ├── packages.nix              # Main user packages
 │   │   ├── security.nix              # sops-nix secrets management
-│   │   ├── shell.nix                 # Shell configurations (Fish)
+│   │   ├── services.nix              # zram, ssh, scx, fstrim, etc
 │   │   └── user.nix                  # User account & groups
-│   └── features/                   # Optional features
-│       ├── desktop.nix               # Plasma 6, audio, printing, scanning
-│       ├── dev.nix                   # Dev tools, nix-ld
-│       └── nvidia.nix                # Nvidia drivers & Prime config
+│   ├── desktop/
+│   │   ├── fonts.nix                 # System fonts
+│   │   └── kde.nix                   # Plasma 6, X11/Wayland configs
+│   ├── dev/
+│   │   ├── containers.nix            # Podman and Docker compat
+│   │   ├── dev.nix                   # Dev tools, nix-ld
+│   │   ├── git.nix                   # System-wide git config
+│   │   └── shell.nix                 # Fish shell & Starship
+│   ├── hardware/
+│   │   ├── audio.nix                 # Pipewire
+│   │   ├── bluetooth.nix             # Bluetooth daemon
+│   │   ├── nvidia.nix                # Nvidia drivers & Prime config
+│   │   └── printing.nix              # CUPS, Scanner, Avahi
+│   └── default.nix                   # Automatically imports all features above
 │
 └── secrets/                          # (Create manually)
     └── secrets.yaml                  # sops-encrypted secrets
@@ -77,15 +87,15 @@ nix develop
 
 ## 🔧 Module System
 
-All modules are strictly basic flat `.nix` files without wrapper abstractions (`lib.mkIf` etc). Enable or disable configurations by simply commenting out imports inside `hosts/16ITH6H4/configuration.nix`.
+All modules are strictly basic flat `.nix` files without wrapper abstractions (`lib.mkIf` etc). Enable or disable configurations by simply commenting out imports inside `modules/default.nix`.
 
 ```nix
   imports = [
     # ...
-    ../../modules/nixos/core/boot.nix
-    ../../modules/nixos/core/core.nix
+    ./core/boot.nix
+    ./core/networking.nix
     # Comment this line to disable dev tools:
-    # ../../modules/nixos/features/dev.nix
+    # ./dev/dev.nix
   ];
 ```
 

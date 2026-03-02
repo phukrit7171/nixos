@@ -8,7 +8,7 @@
       fnm completions --shell fish | source
     '';
   };
-  
+
   users.defaultUserShell = pkgs.fish;
 
   programs.starship.enable = true;

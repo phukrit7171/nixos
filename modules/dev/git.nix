@@ -14,13 +14,15 @@
       push.autoSetupRemote = true;
 
       "includeIf \"gitdir:/home/phukrit7171/Development/bu8/\"" = {
-        path = toString (pkgs.writeText "git-bu8-config" ''
-          [user]
-          email = phukrit.k@chanwanich.digital
-          [credential]
-          helper = ${pkgs.git-credential-manager}/bin/git-credential-manager
-          credentialStore = secretservice
-        '');
+        path = toString (
+          pkgs.writeText "git-bu8-config" ''
+            [user]
+            email = phukrit.k@chanwanich.digital
+            [credential]
+            helper = ${pkgs.git-credential-manager}/bin/git-credential-manager
+            credentialStore = secretservice
+          ''
+        );
       };
     };
   };
