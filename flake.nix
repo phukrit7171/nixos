@@ -24,9 +24,6 @@
     {
       self,
       nixpkgs,
-      sops-nix,
-      antigravity-nix,
-      fenix,
       ...
     }@inputs:
     let
