@@ -28,56 +28,39 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/mapper/croot";
+    device = "/dev/mapper/cryptroot";
     fsType = "btrfs";
     options = [
-      "subvol=@"
-      "compress=zstd"
+      "compress=zstd:3"
       "noatime"
       "discard=async"
     ];
   };
 
-  boot.initrd.luks.devices."croot" = {
-    device = "/dev/disk/by-uuid/920dd0c8-e0e8-4ba0-9da2-e15a47aeeb0d";
-    crypttabExtraOpts = [ "tpm2-device=auto" ];
-  };
-
-  fileSystems."/nix" = {
-    device = "/dev/mapper/croot";
-    fsType = "btrfs";
-    options = [
-      "subvol=@nix"
-      "compress=zstd"
-      "noatime"
-      "discard=async"
-    ];
-  };
-
-  fileSystems."/home" = {
-    device = "/dev/mapper/chome";
-    fsType = "btrfs";
-    options = [
-      "subvol=@home"
-      "compress=zstd"
-      "noatime"
-      "discard=async"
-    ];
-  };
-
-  boot.initrd.luks.devices."chome" = {
-    device = "/dev/disk/by-uuid/7920c4b4-2f89-4700-b857-371ef55649e4";
-    crypttabExtraOpts = [ "tpm2-device=auto" ];
-  };
+  boot.initrd.luks.devices."cryptroot".device =
+    "/dev/disk/by-uuid/2005ce25-053c-4059-b19f-081234e3c5c8";
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/F9E1-7903";
+    device = "/dev/disk/by-uuid/C0F0-6A17";
     fsType = "vfat";
     options = [
       "fmask=0022"
       "dmask=0022"
     ];
   };
+
+  fileSystems."/home" = {
+    device = "/dev/mapper/crypthome";
+    fsType = "btrfs";
+    options = [
+      "compress=zstd:3"
+      "noatime"
+      "discard=async"
+    ];
+  };
+
+  boot.initrd.luks.devices."crypthome".device =
+    "/dev/disk/by-uuid/0215f246-42cc-4914-8adb-556c1c77eac3";
 
   swapDevices = [ ];
 
