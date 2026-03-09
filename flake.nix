@@ -2,6 +2,7 @@
   description = "NixOS configuration for 16ITH6H4";
 
   inputs = {
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     sops-nix = {
@@ -38,6 +39,7 @@
           modules = [
             ./hosts/configuration.nix
             inputs.sops-nix.nixosModules.sops
+            inputs.determinate.nixosModules.default
           ];
         };
       };

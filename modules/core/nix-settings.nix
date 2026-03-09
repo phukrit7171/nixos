@@ -6,6 +6,10 @@
       "nix-command"
       "flakes"
     ];
+    extra-substituters = [ "https://install.determinate.systems" ];
+    extra-trusted-public-keys = [
+      "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
+    ];
     auto-optimise-store = true;
     max-jobs = "auto";
     cores = 0;
