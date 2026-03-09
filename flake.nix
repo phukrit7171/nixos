@@ -3,7 +3,7 @@
 
   inputs = {
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
+    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/*";
 
     sops-nix = {
       url = "github:Mic92/sops-nix";

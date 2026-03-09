@@ -37,8 +37,10 @@
     ];
   };
 
-  boot.initrd.luks.devices."cryptroot".device =
-    "/dev/disk/by-uuid/2005ce25-053c-4059-b19f-081234e3c5c8";
+  boot.initrd.luks.devices."cryptroot" = {
+    device = "/dev/disk/by-uuid/2005ce25-053c-4059-b19f-081234e3c5c8";
+    crypttabExtraOpts = [ "tpm2-device=auto" ];
+  };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/C0F0-6A17";
@@ -59,8 +61,10 @@
     ];
   };
 
-  boot.initrd.luks.devices."crypthome".device =
-    "/dev/disk/by-uuid/0215f246-42cc-4914-8adb-556c1c77eac3";
+  boot.initrd.luks.devices."crypthome" = {
+    device = "/dev/disk/by-uuid/0215f246-42cc-4914-8adb-556c1c77eac3";
+    crypttabExtraOpts = [ "tpm2-device=auto" ];
+  };
 
   swapDevices = [ ];
 

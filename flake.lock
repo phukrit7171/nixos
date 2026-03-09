@@ -272,7 +272,7 @@
       },
       "original": {
         "type": "tarball",
-        "url": "https://flakehub.com/f/NixOS/nixpkgs/0"
+        "url": "https://flakehub.com/f/NixOS/nixpkgs/%2A"
       }
     },
     "root": {
