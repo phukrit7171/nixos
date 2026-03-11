@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   # --- System-wide Dev Tools ---
@@ -19,6 +19,7 @@
     # CLI essentials
     wget
     curl
+    inputs.llama-cpp.packages.${pkgs.stdenv.hostPlatform.system}.cuda
   ];
 
   # --- nix-ld (Run unpatched binaries) ---
