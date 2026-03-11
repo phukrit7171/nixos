@@ -34,6 +34,8 @@
     git-credential-manager
 
     # Utilities
+    chromedriver
+    chromium
     kdePackages.kcalc
     tree
     htop

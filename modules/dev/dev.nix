@@ -66,7 +66,5 @@
     xorg.libxcb
     xorg.libXcomposite
     xorg.libXrandr
-    chromedriver
-    chromium
   ];
 }
