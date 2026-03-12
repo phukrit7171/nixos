@@ -22,5 +22,6 @@
     ./dev/git.nix
     ./dev/shell.nix
     ./dev/virt.nix
+    ./services/llama.nix
   ];
 }
