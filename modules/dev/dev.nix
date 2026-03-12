@@ -4,6 +4,7 @@
   # --- System-wide Dev Tools ---
   environment.systemPackages = with pkgs; [
     # Editors (available to all users / root)
+    opencode
     helix
 
     # Build tools
