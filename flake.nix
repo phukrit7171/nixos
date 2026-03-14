@@ -2,8 +2,7 @@
   description = "NixOS configuration for 16ITH6H4";
 
   inputs = {
-    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/*";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -17,6 +16,7 @@
 
     llama-cpp = {
       url = "github:ggml-org/llama.cpp";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     fenix = {
@@ -43,7 +43,6 @@
           modules = [
             ./hosts/configuration.nix
             inputs.sops-nix.nixosModules.sops
-            inputs.determinate.nixosModules.default
           ];
         };
       };
