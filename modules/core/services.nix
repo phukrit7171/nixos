@@ -5,7 +5,7 @@
   zramSwap.enable = true;
   services.scx = {
     enable = true;
-    scheduler = "scx_bpfland";
+    scheduler = "scx_lavd";
   };
 
   services.openssh.enable = true;
