@@ -4,6 +4,8 @@
   # --- System-wide Dev Tools ---
   environment.systemPackages = with pkgs; [
     # Editors (available to all users / root)
+    vscode
+    arduino-ide
     opencode
     helix
 
