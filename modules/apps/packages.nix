@@ -6,6 +6,9 @@
     # Openclaw
     inputs.openclaw.packages.${pkgs.stdenv.hostPlatform.system}.openclaw
 
+    # SurrealDB
+    inputs.surrealdb.packages.${pkgs.stdenv.hostPlatform.system}.default
+
     # Legion
     lenovo-legion
 
