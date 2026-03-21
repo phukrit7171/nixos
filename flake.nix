@@ -23,11 +23,6 @@
       url = "github:surrealdb/surrealdb/v3.0.4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    zeroclaw = {
-      url = "github:zeroclaw-labs/zeroclaw/v0.5.4";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =

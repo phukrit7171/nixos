@@ -5,9 +5,6 @@
     # SurrealDB
     inputs.surrealdb.packages.${pkgs.stdenv.hostPlatform.system}.default
 
-    # Zeroclaw
-    inputs.zeroclaw.packages.${pkgs.stdenv.hostPlatform.system}.default
-
     # Containers
     podman-compose
 
