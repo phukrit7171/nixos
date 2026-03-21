@@ -8,8 +8,12 @@
   imports = [
     ./hardware-configuration.nix
 
-    # Default modules
-    ../modules
+    # Profiles
+    ../../modules/profiles/core.nix
+    ../../modules/profiles/workstation.nix
+
+    # Hardware Specifics
+    ../../modules/hardware/nvidia.nix
   ];
 
   # =================================================================
@@ -22,6 +26,7 @@
   # Hardware: Lenovo Legion specific
   boot.extraModulePackages = [ config.boot.kernelPackages.lenovo-legion-module ];
   boot.kernelModules = [ "legion-laptop" ];
+  environment.systemPackages = [ pkgs.lenovo-legion ];
 
   # Bluetooth Unblock Hack (Lenovo Legion)
   systemd.services.unblock-bluetooth = {

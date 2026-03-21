@@ -46,7 +46,7 @@
           inherit system;
           specialArgs = { inherit inputs self; };
           modules = [
-            ./hosts/configuration.nix
+            ./hosts/16ITH6H4/configuration.nix
             inputs.sops-nix.nixosModules.sops
           ];
         };

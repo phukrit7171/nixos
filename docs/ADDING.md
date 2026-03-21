@@ -6,12 +6,12 @@
    {
      imports = [
        ./hardware-configuration.nix
+       # Import profiles you want
+       ../../modules/profiles/core.nix
+       ../../modules/profiles/workstation.nix
        
-       # Import modules you want natively
-       ../../modules/nixos/core/boot.nix
-       ../../modules/nixos/core/core.nix
-       ../../modules/nixos/core/user.nix
-       ../../modules/nixos/features/desktop.nix
+       # Import specific hardware modules
+       ../../modules/hardware/bluetooth.nix
      ];
 
      networking.hostName = "<hostname>";
@@ -40,9 +40,9 @@
 
 # Adding a New Module
 
-This setup uses an extremely simple module structure without abstract toggles.
+This setup uses an extremely simple module structure grouped by categories (like hardware, dev, desktop).
 
-1. Create `modules/nixos/<category>/<name>.nix`:
+1. Create `modules/<category>/<name>.nix`:
    ```nix
    { pkgs, config, ... }:
    {
@@ -51,10 +51,10 @@ This setup uses an extremely simple module structure without abstract toggles.
    }
    ```
 
-2. Enable the module by simply adding it to the `imports = []` array in your `hosts/<hostname>/configuration.nix`:
+2. Enable the module by simply adding it to the `imports = []` array in one of your profiles (e.g. `modules/profiles/core.nix`) or host configuration:
    ```nix
    imports = [
      # ...
-     ../../modules/nixos/<category>/<name>.nix
+     ../<category>/<name>.nix
    ];
    ```

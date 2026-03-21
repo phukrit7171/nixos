@@ -1,14 +1,7 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
-  # System-wide packages to replace the home-manager managed packages
   environment.systemPackages = with pkgs; [
-    # SurrealDB
-    inputs.surrealdb.packages.${pkgs.stdenv.hostPlatform.system}.default
-
-    # Legion
-    lenovo-legion
-
     # Credentials
     kdePackages.ksshaskpass
     # KDE Utilities
@@ -39,25 +32,18 @@
     spotify
     vesktop
 
-    # Containers
-    podman-compose
-
     # Editors & Dev
     bruno
     zed-editor
-    fnm
-    uv
     dbeaver-bin
     thonny
-    inputs.antigravity-nix.packages.${pkgs.stdenv.hostPlatform.system}.google-antigravity-no-fhs
-    git-credential-manager
+    vscode
+    arduino-ide
+    opencode
 
     # Utilities
     chromedriver
     chromium
-    tree
-    htop
-    btop
-    grc
+    netbird-ui
   ];
 }

@@ -8,7 +8,7 @@ Declarative NixOS configuration for a **Lenovo Legion** laptop, built with a sim
 |---|---|
 | **Simple Flake** | No `flake-parts`, no abstraction. Just pure Nix. |
 | **System-Wide Config** | No `home-manager`. Everything is configured system-wide. |
-| **Flat Modules** | `core` and `features` modules are direct file imports, extremely easy to toggle. |
+| **Modular Profiles** | Base configurations are organized into `profiles` making it trivial to configure a new host. |
 | **KDE Plasma 6** | Wayland + SDDM |
 | **Nvidia Prime** | Sync mode (Intel + Nvidia) |
 | **BTRFS** | `compress=zstd`, `noatime`, `discard=async` |
@@ -31,7 +31,11 @@ nixos-config/
 │
 ├── modules/
 │   ├── apps/
-│   │   └── packages.nix              # Main user packages
+│   │   ├── cli.nix                   # Headless apps (git, htop, uv)
+│   │   └── gui.nix                   # Desktop apps (chrome, spotify)
+│   ├── profiles/                   # Composable feature sets
+│   │   ├── core.nix                  # Baseline system for all hosts (CLI)
+│   │   └── workstation.nix           # Desktop layer (plasma, audio, GUI)
 │   ├── core/                       # Core system components
 │   │   ├── boot.nix                  # Bootloader, kernel, sysctl
 │   │   ├── networking.nix            # NetworkManager, Netbird
@@ -47,12 +51,11 @@ nixos-config/
 │   │   ├── dev.nix                   # Dev tools, nix-ld
 │   │   ├── git.nix                   # System-wide git config
 │   │   └── shell.nix                 # Fish shell & Starship
-│   ├── hardware/
-│   │   ├── audio.nix                 # Pipewire
-│   │   ├── bluetooth.nix             # Bluetooth daemon
-│   │   ├── nvidia.nix                # Nvidia drivers & Prime config
-│   │   └── printing.nix              # CUPS, Scanner, Avahi
-│   └── default.nix                   # Automatically imports all features above
+│   └── hardware/
+│       ├── audio.nix                 # Pipewire
+│       ├── bluetooth.nix             # Bluetooth daemon
+│       ├── nvidia.nix                # Nvidia drivers & Prime config
+│       └── printing.nix              # CUPS, Scanner, Avahi
 │
 └── secrets/                          # (Create manually)
     └── secrets.yaml                  # sops-encrypted secrets
@@ -85,17 +88,15 @@ nix fmt
 nix develop
 ```
 
-## 🔧 Module System
+## 🔧 Profile System
 
-All modules are strictly basic flat `.nix` files without wrapper abstractions (`lib.mkIf` etc). Enable or disable configurations by simply commenting out imports inside `modules/default.nix`.
+All modules are strictly basic flat `.nix` files. To combine features, you use `profiles`. To configure a new host, just import the logic profiles you want inside your `hosts/<hostname>/configuration.nix`:
 
 ```nix
   imports = [
     # ...
-    ./core/boot.nix
-    ./core/networking.nix
-    # Comment this line to disable dev tools:
-    # ./dev/dev.nix
+    ../../modules/profiles/core.nix         # Base CLI Utilities
+    ../../modules/profiles/workstation.nix  # KDE, Wayland, Audio
   ];
 ```
 
