@@ -3,9 +3,6 @@
 {
   # System-wide packages to replace the home-manager managed packages
   environment.systemPackages = with pkgs; [
-    # Openclaw
-    inputs.openclaw.packages.${pkgs.stdenv.hostPlatform.system}.openclaw
-
     # SurrealDB
     inputs.surrealdb.packages.${pkgs.stdenv.hostPlatform.system}.default
 
