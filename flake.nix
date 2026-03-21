@@ -19,11 +19,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     surrealdb = {
       url = "github:surrealdb/surrealdb/v3.0.4";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,22 +29,17 @@
     {
       self,
       nixpkgs,
-      fenix,
       ...
     }@inputs:
     let
       platform = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${platform};
-      rust-toolchain = fenix.packages.${platform}.minimal.toolchain;
     in
     {
-      packages.${platform}.default = rust-toolchain;
-
       nixosConfigurations."16ITH6H4" = nixpkgs.lib.nixosSystem {
-
         specialArgs = { inherit inputs self; };
         modules = [
-          { nixpkgs.hostPlatform = platform; } # กำหนด platform ผ่าน module แทน
+          { nixpkgs.hostPlatform = platform; }
           ./hosts/16ITH6H4/configuration.nix
           inputs.sops-nix.nixosModules.sops
         ];
@@ -64,7 +54,6 @@
           sbctl
           sops
           age
-          rust-toolchain
         ];
       };
 
