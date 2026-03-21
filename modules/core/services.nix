@@ -4,7 +4,7 @@
   # SYSTEM SERVICES
   zramSwap.enable = true;
   services.scx = {
-    enable = true;
+    enable = false; # prevent scx bug
     scheduler = "scx_lavd";
   };
 
