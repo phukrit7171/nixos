@@ -25,7 +25,7 @@
     };
 
     surrealdb = {
-      url = "github:surrealdb/surrealdb";
+      url = "github:surrealdb/surrealdb/v3.0.4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -34,38 +34,40 @@
     {
       self,
       nixpkgs,
+      fenix,
       ...
     }@inputs:
     let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      platform = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${platform};
+      rust-toolchain = fenix.packages.${platform}.minimal.toolchain;
     in
     {
-      nixosConfigurations = {
-        "16ITH6H4" = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs self; };
-          modules = [
-            ./hosts/16ITH6H4/configuration.nix
-            inputs.sops-nix.nixosModules.sops
-          ];
-        };
+      packages.${platform}.default = rust-toolchain;
+
+      nixosConfigurations."16ITH6H4" = nixpkgs.lib.nixosSystem {
+
+        specialArgs = { inherit inputs self; };
+        modules = [
+          { nixpkgs.hostPlatform = platform; } # กำหนด platform ผ่าน module แทน
+          ./hosts/16ITH6H4/configuration.nix
+          inputs.sops-nix.nixosModules.sops
+        ];
       };
 
-      # Shell for bootstrapping
-      devShells.${system}.default = pkgs.mkShell {
+      devShells.${platform}.default = pkgs.mkShell {
         packages = with pkgs; [
           git
           just
-          nixfmt # Required instead of nixfmt-rfc-style
+          nixfmt
           nh
           sbctl
           sops
           age
+          rust-toolchain
         ];
       };
 
-      # Formatter
-      formatter.${system} = pkgs.nixfmt;
+      formatter.${platform} = pkgs.nixfmt;
     };
 }

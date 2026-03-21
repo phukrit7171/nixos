@@ -272,15 +272,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1773823147,
-        "narHash": "sha256-4duBb3oe8W8gjsvylyUQ4jzGWE+cWSKfF02j+lRBB6k=",
+        "lastModified": 1773413746,
+        "narHash": "sha256-RD4Sm1kF/7tHXbYaNeEYjozhazCGUJ0rPGOZHaAFGVo=",
         "owner": "surrealdb",
         "repo": "surrealdb",
-        "rev": "9be20fcf5af728c02ebbc785bbceaf259e1a46bc",
+        "rev": "e102291a4999e7654cad163f634245f62f6990e3",
         "type": "github"
       },
       "original": {
         "owner": "surrealdb",
+        "ref": "v3.0.4",
         "repo": "surrealdb",
         "type": "github"
       }
