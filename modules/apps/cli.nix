@@ -4,12 +4,15 @@
   environment.systemPackages = with pkgs; [
     # SurrealDB
     inputs.surrealdb.packages.${pkgs.stdenv.hostPlatform.system}.default
-    inputs.antigravity-nix.packages.${pkgs.stdenv.hostPlatform.system}.google-antigravity-no-fhs
+
+    # Zeroclaw
+    inputs.zeroclaw.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Containers
     podman-compose
 
     # Editors & Dev
+    inputs.antigravity-nix.packages.${pkgs.stdenv.hostPlatform.system}.google-antigravity-no-fhs
     fnm
     uv
     git-credential-manager
