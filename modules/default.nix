@@ -19,6 +19,7 @@
 
     ./dev/containers.nix
     ./dev/dev.nix
+    ./dev/nix-ld.nix
     ./dev/git.nix
     ./dev/shell.nix
     ./dev/virt.nix

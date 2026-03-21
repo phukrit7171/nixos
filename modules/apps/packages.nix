@@ -55,7 +55,6 @@
     # Utilities
     chromedriver
     chromium
-    kdePackages.kcalc
     tree
     htop
     btop
