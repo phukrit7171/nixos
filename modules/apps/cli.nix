@@ -14,6 +14,7 @@
     uv
     git-credential-manager
     helix
+    opencode
 
     # Build tools
     pkg-config

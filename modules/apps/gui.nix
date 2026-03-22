@@ -33,13 +33,14 @@
     vesktop
 
     # Editors & Dev
+    distrobox
+    distroshelf
     bruno
     zed-editor
     dbeaver-bin
     thonny
     vscode
     arduino-ide
-    opencode
 
     # Utilities
     chromedriver
