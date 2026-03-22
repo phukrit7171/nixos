@@ -12,6 +12,7 @@
     kdePackages.kolourpaint # Simple paint program
     kdePackages.ksystemlog # System log viewer
     kdePackages.sddm-kcm # SDDM configuration module
+    kontainer
     kdiff3 # File/directory comparison tool
 
     # Hardware/System Utilities (Optional)
