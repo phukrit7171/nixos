@@ -9,6 +9,7 @@
     podman-compose
 
     # Editors & Dev
+    fnm
     uv
     git-credential-manager
     helix
