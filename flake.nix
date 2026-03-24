@@ -3,7 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+    
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,6 +42,16 @@
         modules = [
           { nixpkgs.hostPlatform = platform; }
           ./hosts/16ITH6H4/configuration.nix
+          inputs.sops-nix.nixosModules.sops
+        ];
+      };
+
+      nixosConfigurations."wsl" = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs self; };
+        modules = [
+          { nixpkgs.hostPlatform = platform; }
+          inputs.nixos-wsl.nixosModules.default
+          ./hosts/wsl/configuration.nix
           inputs.sops-nix.nixosModules.sops
         ];
       };

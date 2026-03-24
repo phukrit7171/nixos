@@ -9,8 +9,6 @@
     podman-compose
 
     # Editors & Dev
-    inputs.antigravity-nix.packages.${pkgs.stdenv.hostPlatform.system}.google-antigravity-no-fhs
-    fnm
     uv
     git-credential-manager
     helix
