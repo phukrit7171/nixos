@@ -10,6 +10,7 @@
 
     # Editors & Dev
     inputs.antigravity-nix.packages.${pkgs.stdenv.hostPlatform.system}.google-antigravity-no-fhs
+    platformio-core
     fnm
     uv
     git-credential-manager
