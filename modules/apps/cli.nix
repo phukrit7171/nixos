@@ -10,6 +10,7 @@
 
     # Editors & Dev
     inputs.antigravity-nix.packages.${pkgs.stdenv.hostPlatform.system}.google-antigravity-no-fhs
+    espup
     platformio-core
     fnm
     uv
