@@ -9,6 +9,8 @@
     podman-compose
 
     # Editors & Dev
+    espflash
+    probe-rs-tools
     distrobox
     typst
     esp-generate
