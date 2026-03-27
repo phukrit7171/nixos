@@ -39,7 +39,6 @@
 
     # Editors & Dev
     inputs.antigravity-nix.packages.${pkgs.stdenv.hostPlatform.system}.google-antigravity-no-fhs
-    distrobox
     distroshelf
     bruno
     zed-editor

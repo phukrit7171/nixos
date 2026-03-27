@@ -9,7 +9,8 @@
     podman-compose
 
     # Editors & Dev
-    inputs.antigravity-nix.packages.${pkgs.stdenv.hostPlatform.system}.google-antigravity-no-fhs
+    distrobox
+    esp-generate
     rustup
     espup
     platformio-core
