@@ -14,6 +14,7 @@
 
     # Hardware Specifics
     ../../modules/hardware/nvidia.nix
+    ../../modules/hardware/embedded.nix
   ];
 
   # =================================================================
