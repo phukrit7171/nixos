@@ -10,6 +10,7 @@
 
     # Editors & Dev
     distrobox
+    typst
     esp-generate
     rustup
     espup
