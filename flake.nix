@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-    
+
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,7 +21,7 @@
     };
 
     surrealdb = {
-      url = "github:surrealdb/surrealdb/v3.0.4";
+      url = "github:surrealdb/surrealdb/v3.0.5";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
