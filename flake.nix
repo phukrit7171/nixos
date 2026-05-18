@@ -1,5 +1,5 @@
 {
-  description = "NixOS configuration for 16ITH6H4";
+  description = "NixOS configuration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -12,16 +12,6 @@
 
     antigravity-nix = {
       url = "github:jacopone/antigravity-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    llama-cpp = {
-      url = "github:ggml-org/llama.cpp";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    surrealdb = {
-      url = "github:surrealdb/surrealdb/v3.0.5";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -52,6 +42,15 @@
           { nixpkgs.hostPlatform = platform; }
           inputs.nixos-wsl.nixosModules.default
           ./hosts/wsl/configuration.nix
+          inputs.sops-nix.nixosModules.sops
+        ];
+      };
+
+      nixosConfigurations."A620M_Pro_RS_WiFi" = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs self; };
+        modules = [
+          { nixpkgs.hostPlatform = platform; }
+          ./hosts/A620M_Pro_RS_WiFi/configuration.nix
           inputs.sops-nix.nixosModules.sops
         ];
       };

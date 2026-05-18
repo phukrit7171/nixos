@@ -15,7 +15,7 @@
 
   # KERNEL
   # Use default stable kernel for better Nvidia compatibility
-  boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # SYSCTL TWEAKS
   boot.kernel.sysctl = {

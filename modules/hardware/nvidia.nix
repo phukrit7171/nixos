@@ -6,7 +6,6 @@
     enable = true;
     extraPackages = with pkgs; [
       nvidia-vaapi-driver
-      intel-media-driver
     ];
   };
 
@@ -21,14 +20,9 @@
 
     powerManagement = {
       enable = true;
-      finegrained = false;
+      finegrained = true;
     };
 
-    # Prime Offload (Switching between Intel/Nvidia)
-    prime = {
-      sync.enable = true;
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
+
   };
 }

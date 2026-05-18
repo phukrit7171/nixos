@@ -3,7 +3,7 @@
 {
   environment.systemPackages = with pkgs; [
     # SurrealDB
-    inputs.surrealdb.packages.${pkgs.stdenv.hostPlatform.system}.default
+    # inputs.surrealdb.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Containers
     podman-compose
@@ -40,6 +40,6 @@
     grc
     wget
     curl
-    inputs.llama-cpp.packages.${pkgs.stdenv.hostPlatform.system}.cuda
+    # inputs.llama-cpp.packages.${pkgs.stdenv.hostPlatform.system}.cuda
   ];
 }

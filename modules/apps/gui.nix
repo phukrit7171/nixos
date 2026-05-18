@@ -51,11 +51,4 @@
     chromium
     netbird-ui
   ];
-
-  programs.vscode = {
-    enable = true;
-    extensions = with pkgs.vscode-extensions; [
-      platformio.platformio-vscode-ide
-    ];
-  };
 }
