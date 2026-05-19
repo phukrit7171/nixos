@@ -22,6 +22,5 @@
     "net.ipv4.tcp_fastopen" = 3;
     "net.core.default_qdisc" = "fq";
     "net.ipv4.tcp_congestion_control" = "bbr";
-    "vm.swappiness" = 100;
   };
 }

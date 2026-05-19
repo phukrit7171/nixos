@@ -46,7 +46,7 @@
         ];
       };
 
-      nixosConfigurations."A620M_Pro_RS_WiFi" = nixpkgs.lib.nixosSystem {
+      nixosConfigurations."A620MProRSWiFi" = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs self; };
         modules = [
           { nixpkgs.hostPlatform = platform; }
