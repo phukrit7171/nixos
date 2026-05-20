@@ -4,7 +4,7 @@
   environment.systemPackages = with pkgs; [
     # SurrealDB
     # inputs.surrealdb.packages.${pkgs.stdenv.hostPlatform.system}.default
-
+    openssl
     # Containers
     podman-compose
 
